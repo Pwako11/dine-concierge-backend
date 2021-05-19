@@ -6,7 +6,7 @@ class ReservationsController < ApplicationController
     end 
 
     def show
-        # reservation = set_reservation
+        reservation = set_reservation
         if reservation
             render json: reservation
         else
@@ -19,21 +19,23 @@ class ReservationsController < ApplicationController
 
         if reservation.save
             render json: {reservation: reservation, message: "Created Successfully"}
+        else
+            render json: {error: reservation.errors}
         end 
     end 
 
     def update
-        # reservation = set_reservation
+        reservation = set_reservation
         if reservation
             reservation.update(reservation_params)
             render json: {reservation: reservation, message: "Updated Successfully"}
         else
-            render json:{error: "Reservation could not be edited."}
+            render json:{error: reservation.errors}
         end 
     end 
 
     def destroy
-        # reservation = set_reservation
+        reservation = set_reservation
         if reservation
             reservation.destroy
             render json: {reservation: reservation, message: "Your resevation was successfully deleted."}
