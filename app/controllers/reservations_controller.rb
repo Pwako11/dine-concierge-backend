@@ -2,7 +2,7 @@ class ReservationsController < ApplicationController
     before_action :set_reservation, only:[:show, :edit, :destroy]
     
     def index
-        render json: Reservation.all
+        render json: Reservation.all, include: :user 
     end 
 
     def show
@@ -51,7 +51,7 @@ class ReservationsController < ApplicationController
     end 
 
     def reservation_params
-        params.require(:reservation).permit(:restaurant_name, :booked_time, :booked_email, :notes, :reserved, :user_id)
+        params.require(:reservation).permit(:id, :restaurant_name, :booked_time, :booked_email, :notes, :reserved, :user_id)
     end 
 
 end
